@@ -1,0 +1,12 @@
+{
+  "sourceUrl": "https://data.world/worldbank/co2-emissions",
+  "sqlQuery": "SELECT country_name,\n       MIN(value) AS min_kt,\n       MAX(value) AS max_kt,\n       (MAX(value) - MIN(value)) AS growth_kt\nFROM dataset\nWHERE year BETWEEN 2010 AND 2019\nGROUP BY country_name\nORDER BY growth_kt DESC;",
+  "pythonCode": "import pandas as pd\nimport matplotlib.pyplot as plt\nfrom io import StringIO\n\n# Use the SQL result if it exists, otherwise the original raw CSV\ninput_csv = sql_result if 'sql_result' in globals() and sql_result else raw_csv\ndf = pd.read_csv(StringIO(input_csv))\n\n# Columns available: country_name, min_kt, max_kt, growth_kt\n\n# Derived column example\ndf['scaled_min_kt'] = df['min_kt'] * 2\ndf['min_kt_per_max_kt'] = df['min_kt'] / df['max_kt'].replace(0, float('nan'))\n\n# Filter to above-average rows\ndf = df[df['min_kt'] >= df['min_kt'].mean()]\n\n# Aggregate and plot (the figure is captured automatically)\nsummary = df.groupby('country_name')['min_kt'].mean()\nsummary.plot(kind='bar')\n\n# Print the final CSV so it can continue to S3\nprint(df.to_csv(index=False))",
+  "s3Bucket": "bleepx-pipeline-output",
+  "s3Key": "dataworld/co2_by_country.csv",
+  "activeStep": "s3",
+  "sqlCell": 1,
+  "pythonCell": 2,
+  "timestamp": "2026-09-05T02:59:04.018Z",
+  "name": "bleepx-pipeline-output-dataworld_co2_by_"
+}
