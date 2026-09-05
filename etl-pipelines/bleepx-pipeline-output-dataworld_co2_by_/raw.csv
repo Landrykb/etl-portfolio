@@ -1,0 +1,13 @@
+country_name,country_code,year,value
+United States,USA,2010,5432538.5
+United States,USA,2011,5285216.0
+United States,USA,2012,5110427.0
+China,CHN,2010,8256969.2
+China,CHN,2011,9478133.6
+China,CHN,2012,9867789.1
+India,IND,2010,1666360.5
+India,IND,2011,1756224.8
+India,IND,2012,1888672.4
+Germany,DEU,2010,762621.5
+Germany,DEU,2011,734861.4
+Germany,DEU,2012,745601.7
