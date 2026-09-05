@@ -1,0 +1,2 @@
+bucket: bleepx-pipeline-output
+key: dataworld/co2_by_country.csv
